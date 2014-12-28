@@ -13,7 +13,9 @@ public class UserControls extends Thread {
 
 	private Controls			controls	= Controls.getInstance();
 	private TransformGroup		rootTG		= MainFrame.getInstance().getRootTG();
-	private double				rotation;
+
+	private Vector3d			position	= new Vector3d();
+	private double				rotation	= 0;
 
 	@Override
 	public void run() {
@@ -30,37 +32,36 @@ public class UserControls extends Thread {
 	private void step() {
 		double speed_factor = 0.5;
 		if (controls.isKeyPressed(KeyEvent.VK_SHIFT))
-			speed_factor = 2;
+			speed_factor *= 3;
 
-
-		Transform3D t3d_current = new Transform3D();
-		Transform3D t3d = new Transform3D();
-		rootTG.getTransform(t3d_current);
+		Transform3D t3d_position = new Transform3D();
+		Transform3D t3d_rotation = new Transform3D();
+		// rootTG.getTransform(t3d_current);
 
 		if (controls.isKeyPressed(KeyEvent.VK_W)) {
-			t3d.set(new Vector3d(0, 0, SLEEP * 0.1 * speed_factor));
+			position.add(new Vector3d(0, 0, SLEEP * 0.1 * speed_factor));
 		}
 		if (controls.isKeyPressed(KeyEvent.VK_S)) {
-			t3d.set(new Vector3d(0, 0, -SLEEP * 0.1 * speed_factor));
+			position.add(new Vector3d(0, 0, -SLEEP * 0.1 * speed_factor));
 		}
 		if (controls.isKeyPressed(KeyEvent.VK_A)) {
-			t3d.set(new Vector3d(SLEEP * 0.1 * speed_factor, 0, 0));
+			position.add(new Vector3d(SLEEP * 0.1 * speed_factor, 0, 0));
 		}
 		if (controls.isKeyPressed(KeyEvent.VK_D)) {
-			t3d.set(new Vector3d(-SLEEP * 0.1 * speed_factor, 0, 0));
+			position.add(new Vector3d(-SLEEP * 0.1 * speed_factor, 0, 0));
 		}
 		if (controls.isKeyPressed(KeyEvent.VK_Q)) {
-			rotation += Math.toRadians(0.2 * speed_factor);
-
-			t3d.rotY(Math.toRadians(0.2 * speed_factor));
+			rotation += Math.toRadians(speed_factor);
 		}
 		if (controls.isKeyPressed(KeyEvent.VK_E)) {
-			rotation -= Math.toRadians(0.2 * speed_factor);
-			t3d.rotY(-Math.toRadians(0.2 * speed_factor));
+			rotation -= Math.toRadians(speed_factor);
 		}
 
-		t3d_current.mul(t3d);
-		rootTG.setTransform(t3d_current);
+		t3d_position.set(position);
+
+		t3d_rotation.rotY(rotation);
+		t3d_position.mul(t3d_rotation);
+		rootTG.setTransform(t3d_position);
 	}
 
 	public static UserControls getInstance() {
