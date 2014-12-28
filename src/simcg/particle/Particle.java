@@ -13,6 +13,7 @@ public class Particle {
 
 	private TransformGroup			trans;
 
+	private double					mass	= 1;
 	private Vector3d				velocity;
 	private Vector3d				position;
 
@@ -30,15 +31,19 @@ public class Particle {
 		particleRoot.addChild(trans);
 	}
 
-	public void setVelocity(double x, double y, double z) {
-		velocity.set(x, y, z);
-	}
-
 	public void update() {
 		Transform3D t3d = new Transform3D();
 
 		t3d.set(position);
 		trans.setTransform(t3d);
+	}
+
+	public void setMass(double mass) {
+		this.mass = mass;
+	}
+
+	public void setVelocity(double x, double y, double z) {
+		velocity.set(x, y, z);
 	}
 
 	public Vector3d getPosition() {
@@ -49,8 +54,12 @@ public class Particle {
 		return velocity;
 	}
 
+	public double getMass() {
+		return mass;
+	}
+
 	private Sphere getSphere() {
-		Sphere sphere = new Sphere(1f);
+		Sphere sphere = new Sphere(.25f);
 		Appearance appearance = new Appearance();
 
 		ColoringAttributes colattribut = new ColoringAttributes(0.9f, 0.9f, 0.9f, ColoringAttributes.NICEST);

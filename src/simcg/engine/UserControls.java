@@ -28,9 +28,9 @@ public class UserControls extends Thread {
 	}
 
 	private void step() {
-		double speed_factor = 1;
+		double speed_factor = 0.5;
 		if (controls.isKeyPressed(KeyEvent.VK_SHIFT))
-			speed_factor = 3;
+			speed_factor = 2;
 
 
 		Transform3D t3d_current = new Transform3D();

@@ -17,13 +17,13 @@ public class ParticleSimulation {
 	public void init() {
 		particles = new ArrayList<>();
 		for (int i = 0; i < 100; i++) {
-			int max = 30;
+			int max = MainFrame.ROOM_SIZE;
 			double x = RandomUtil.nextDouble(-max, max);
 			double y = RandomUtil.nextDouble(-max, max);
 			double z = RandomUtil.nextDouble(-max, max);
 			Particle particle = new Particle(x, y, z);
 
-			max = 25;
+			max = MainFrame.ROOM_SIZE / 2;
 			x = RandomUtil.nextDouble(-max, max);
 			y = RandomUtil.nextDouble(-max, max);
 			z = RandomUtil.nextDouble(-max, max);
@@ -38,26 +38,37 @@ public class ParticleSimulation {
 	 * update all particles
 	 * 
 	 * @param delta
-	 *            time passed in ms
+	 *            time passed in seconds
 	 */
-	public void update(long delta) {
+	public void update(double delta) {
+
 		for (Particle particle : particles) {
 			worldCollision(particle, delta);
 
 			Vector3d pos = particle.getPosition();
 			Vector3d vel = new Vector3d(particle.getVelocity());
-			vel.scale(delta / 1000.);
 
+			// Euler integration
+			vel.scale(delta);
 			pos.add(vel);
+
+			// Gravity
+			Vector3d acc = new Vector3d(0, -9.81, 0);
+			acc.scale(delta);
+
+			particle.getVelocity().add(acc);
 
 			particle.update();
 		}
 	}
 
-	private void worldCollision(Particle particle, long delta) {
+	/**
+	 * calculates and resolves collisions with Room walls
+	 */
+	private void worldCollision(Particle particle, double delta) {
 		Vector3d pos = new Vector3d(particle.getPosition());
 		Vector3d vel = new Vector3d(particle.getVelocity());
-		vel.scale(delta / 1000.);
+		vel.scale(delta);
 		pos.add(vel);
 
 		if (pos.x < -MainFrame.ROOM_SIZE || pos.x > MainFrame.ROOM_SIZE)

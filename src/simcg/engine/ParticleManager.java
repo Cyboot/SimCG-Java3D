@@ -24,7 +24,7 @@ public class ParticleManager extends Thread {
 		while (true) {
 			long start = System.currentTimeMillis();
 
-			step(delta);
+			step(delta / 1000.);
 
 
 			long timepassed = System.currentTimeMillis() - start;
@@ -39,7 +39,7 @@ public class ParticleManager extends Thread {
 		}
 	}
 
-	private void step(long delta) {
+	private void step(double delta) {
 		simulation.update(delta);
 	}
 

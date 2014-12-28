@@ -11,7 +11,6 @@ import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.Bounds;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
-import javax.media.j3d.ColoringAttributes;
 import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.PolygonAttributes;
 import javax.media.j3d.Transform3D;
@@ -27,7 +26,7 @@ import simcg.util.Cube;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 public class MainFrame extends JFrame {
-	public static final int		ROOM_SIZE	= 100;
+	public static final int		ROOM_SIZE	= 25;
 
 	private static MainFrame	instance	= new MainFrame();
 
@@ -71,10 +70,6 @@ public class MainFrame extends JFrame {
 
 
 		Appearance appear = new Appearance();
-		ColoringAttributes colattribut = new ColoringAttributes(0.2f, 0.2f, 0.2f, ColoringAttributes.NICEST);
-		// appear.setColoringAttributes(colattribut);
-
-		// ColorCube colorCube = new ColorCube(100);
 		PolygonAttributes pa = new PolygonAttributes();
 		pa.setCullFace(PolygonAttributes.CULL_FRONT);
 		appear.setPolygonAttributes(pa);
@@ -129,7 +124,7 @@ public class MainFrame extends JFrame {
 
 		// move the ViewPlatform 500 Meter back (origin is visible)
 		Transform3D t3d = new Transform3D();
-		t3d.set(new Vector3d(0, 0, 400));
+		t3d.set(new Vector3d(0, 0, ROOM_SIZE * 4));
 		viewerTransform = universe.getViewingPlatform().getViewPlatformTransform();
 		viewerTransform.setTransform(t3d);
 		View view = universe.getViewer().getView();

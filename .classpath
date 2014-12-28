@@ -12,6 +12,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/SimCG-Java3D/lib/javadoc2.zip!/j3d-1_5_2-api-docs"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/vecmath.jar"/>
+	<classpathentry kind="lib" path="lib/vecmath.jar" sourcepath="lib/vecmath-1_5_2-src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
