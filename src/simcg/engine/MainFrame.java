@@ -26,7 +26,7 @@ import simcg.util.Cube;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 public class MainFrame extends JFrame {
-	public static final int		ROOM_SIZE	= 25;
+	public static final int		ROOM_SIZE	= 5;
 
 	private static MainFrame	instance	= new MainFrame();
 
