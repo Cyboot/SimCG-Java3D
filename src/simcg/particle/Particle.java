@@ -59,10 +59,11 @@ public class Particle {
 	}
 
 	private Sphere getSphere() {
-		Sphere sphere = new Sphere(.25f);
+		Sphere sphere = new Sphere(.1f);
 		Appearance appearance = new Appearance();
 
-		ColoringAttributes colattribut = new ColoringAttributes(0.9f, 0.9f, 0.9f, ColoringAttributes.NICEST);
+		ColoringAttributes colattribut = new ColoringAttributes(0.9f, 0.9f, 0.9f,
+				ColoringAttributes.NICEST);
 		appearance.setColoringAttributes(colattribut);
 		sphere.setAppearance(appearance);
 		return sphere;
